@@ -55,9 +55,7 @@ void Camera::roll(float speed) {
 
   // Rotate camera around its local z axis
   glm::mat4 transform{1.0f};
-  transform = glm::translate(transform, m_eye);
   transform = glm::rotate(transform, speed, forward);
-  transform = glm::translate(transform, -m_eye);
 
   m_up = transform * glm::vec4(m_up, 1.0f);
 
@@ -74,7 +72,11 @@ void Camera::tilt(float speed) {
   transform = glm::rotate(transform, speed, right);
   transform = glm::translate(transform, -m_eye);
 
-  m_at = transform * glm::vec4(m_at - m_eye, 1.0f) + glm::vec4(m_eye, 0.0f);
+  m_at = transform * glm::vec4(m_at, 1.0f);
+
+  transform = glm::mat4(1.0f);
+  transform = glm::rotate(transform, speed, right);
+
   m_up = transform * glm::vec4(m_up, 1.0f);
 
   computeViewMatrix();
