@@ -1,3 +1,2 @@
-# add_subdirectory(helloworld)
 # add_subdirectory(screensaver)
-add_subdirectory(lookat)
+add_subdirectory(drone)
