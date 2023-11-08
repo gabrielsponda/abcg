@@ -14,10 +14,9 @@ void main() {
   vec4 posEyeSpace = viewMatrix * modelMatrix * vec4(inPosition, 1);
 
   // Add sinusoidal movement to y position
-  posEyeSpace.y += sin(0.1 * posEyeSpace.x + time) * 0.1;
+  posEyeSpace.y += sin(0.5 * posEyeSpace.x + time) * 0.1;
 
-  float i = 1.0 - (-posEyeSpace.z / 5.0);
-  fragColor = vec4(i, i, i, 1) * color;
+fragColor = color;
 
   gl_Position = projMatrix * posEyeSpace;
 }

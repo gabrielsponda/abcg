@@ -27,8 +27,7 @@ mat4 rotation = mat4(
 
   vec4 posEyeSpace = viewMatrix * modelMatrix * rotatedPosition;
 
-  float i = 1.0 - (-posEyeSpace.z / 5.0);
-  fragColor = vec4(i, i, i, 1) * color;
+fragColor = color;
 
   gl_Position = projMatrix * posEyeSpace;
 }

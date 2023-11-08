@@ -17,8 +17,7 @@ void main() {
   float offset = sin(time + modelMatrix[3][0] + modelMatrix[3][2]) * 0.1;
   posEyeSpace.y += offset;
 
-  float i = 1.0 - (-posEyeSpace.z / 5.0);
-  fragColor = vec4(i, i, i, 1) * color;
+fragColor = color;
 
   gl_Position = projMatrix * posEyeSpace;
 }

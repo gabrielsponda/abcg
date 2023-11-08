@@ -1,49 +1,49 @@
 #include "ground.hpp"
 
-void Ground::create(GLuint program) {
+void Ground::create(GLuint program, float size) {
   // Define vertices for a cube
-  std::array<glm::vec3, 36> vertices{{// Front face
-                                      {-0.5f, -0.5f, 0.5f},
-                                      {0.5f, -0.5f, 0.5f},
-                                      {0.5f, 0.5f, 0.5f},
-                                      {-0.5f, -0.5f, 0.5f},
-                                      {0.5f, 0.5f, 0.5f},
-                                      {-0.5f, 0.5f, 0.5f},
-                                      // Right face
-                                      {0.5f, -0.5f, 0.5f},
-                                      {0.5f, -0.5f, -0.5f},
-                                      {0.5f, 0.5f, -0.5f},
-                                      {0.5f, -0.5f, 0.5f},
-                                      {0.5f, 0.5f, -0.5f},
-                                      {0.5f, 0.5f, 0.5f},
-                                      // Back face
-                                      {0.5f, -0.5f, -0.5f},
-                                      {-0.5f, -0.5f, -0.5f},
-                                      {-0.5f, 0.5f, -0.5f},
-                                      {0.5f, -0.5f, -0.5f},
-                                      {-0.5f, 0.5f, -0.5f},
-                                      {0.5f, 0.5f, -0.5f},
-                                      // Left face
-                                      {-0.5f, -0.5f, -0.5f},
-                                      {-0.5f, -0.5f, 0.5f},
-                                      {-0.5f, 0.5f, 0.5f},
-                                      {-0.5f, -0.5f, -0.5f},
-                                      {-0.5f, 0.5f, 0.5f},
-                                      {-0.5f, 0.5f, -0.5f},
-                                      // Bottom face
-                                      {-0.5f, -0.5f, -0.5f},
-                                      {0.5f, -0.5f, -0.5f},
-                                      {0.5f, -0.5f, 0.5f},
-                                      {-0.5f, -0.5f, -0.5f},
-                                      {0.5f, -0.5f, 0.5f},
-                                      {-0.5f, -0.5f, 0.5f},
-                                      // Top face
-                                      {-0.5f, 0.5f, 0.5f},
-                                      {0.5f, 0.5f, 0.5f},
-                                      {0.5f, 0.5f, -0.5f},
-                                      {-0.5f, 0.5f, 0.5f},
-                                      {0.5f, 0.5f, -0.5f},
-                                      {-0.5f, 0.5f, -0.5f}}};
+  std::array<glm::vec3, 36> vertices = {{// Front face
+                                         {-1 * size, -1 * size, 1 * size},
+                                         {1 * size, -1 * size, 1 * size},
+                                         {1 * size, 1 * size, 1 * size},
+                                         {-1 * size, -1 * size, 1 * size},
+                                         {1 * size, 1 * size, 1 * size},
+                                         {-1 * size, 1 * size, 1 * size},
+                                         // Right face
+                                         {1 * size, -1 * size, 1 * size},
+                                         {1 * size, -1 * size, -1 * size},
+                                         {1 * size, 1 * size, -1 * size},
+                                         {1 * size, -1 * size, 1 * size},
+                                         {1 * size, 1 * size, -1 * size},
+                                         {1 * size, 1 * size, 1 * size},
+                                         // Back face
+                                         {1 * size, -1 * size, -1 * size},
+                                         {-1 * size, -1 * size, -1 * size},
+                                         {-1 * size, 1 * size, -1 * size},
+                                         {1 * size, -1 * size, -1 * size},
+                                         {-1 * size, 1 * size, -1 * size},
+                                         {1 * size, 1 * size, -1 * size},
+                                         // Left face
+                                         {-1 * size, -1 * size, -1 * size},
+                                         {-1 * size, -1 * size, 1 * size},
+                                         {-1 * size, 1 * size, 1 * size},
+                                         {-1 * size, -1 * size, -1 * size},
+                                         {-1 * size, 1 * size, 1 * size},
+                                         {-1 * size, 1 * size, -1 * size},
+                                         // Bottom face
+                                         {-1 * size, -1 * size, -1 * size},
+                                         {1 * size, -1 * size, -1 * size},
+                                         {1 * size, -1 * size, 1 * size},
+                                         {-1 * size, -1 * size, -1 * size},
+                                         {1 * size, -1 * size, 1 * size},
+                                         {-1 * size, -1 * size, 1 * size},
+                                         // Top face
+                                         {-1 * size, 1 * size, 1 * size},
+                                         {1 * size, 1 * size, 1 * size},
+                                         {1 * size, 1 * size, -1 * size},
+                                         {-1 * size, 1 * size, 1 * size},
+                                         {1 * size, 1 * size, -1 * size},
+                                         {-1 * size, 1 * size, -1 * size}}};
 
   // Generate VBO
   abcg::glGenBuffers(1, &m_VBO);
@@ -74,7 +74,7 @@ void Ground::paint() {
 
   // Draw a grid of 2N+1 x 2N+1 tiles on the xz plane, centered around the
   // origin
-  auto const N{50};
+  auto const N{10};
   for (auto const z : iter::range(-N, N + 1)) {
     for (auto const x : iter::range(-N, N + 1)) {
       // Set model matrix as a translation matrix

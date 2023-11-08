@@ -34,8 +34,7 @@ void main() {
   mat4 modelMatrix = movingTiles(modelMatrix, 0.5);
   vec4 posEyeSpace = viewMatrix * modelMatrix * pos;
 
-  float i = 1.0 - (-posEyeSpace.z / 5.0);
-  fragColor = vec4(i, i, i, 1) * color;
+fragColor = color;
 
   gl_Position = projMatrix * posEyeSpace;
 }

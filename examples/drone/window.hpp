@@ -48,6 +48,9 @@ private:
 
   bool m_showPlane{false};
 
+  float m_cubeSize{0.5};
+  int m_togleSize{0};
+
   Ground m_ground;
 
   std::vector<Vertex> m_vertices;

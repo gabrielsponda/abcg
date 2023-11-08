@@ -5,7 +5,7 @@
 
 class Ground {
 public:
-  void create(GLuint program);
+  void create(GLuint program, float size);
   void paint();
   void destroy();
 

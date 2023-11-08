@@ -54,6 +54,10 @@ void Window::onEvent(SDL_Event const &event) {
       loadShader("wave.vert", "wave.frag");
     if (event.key.keysym.sym == SDLK_7)
       loadShader("cubeWave.vert", "cubeWave.frag");
+    if (event.key.keysym.sym == SDLK_t) {
+      loadShader("original.vert", "original.frag");
+      m_togleSize = 1;
+    }
   }
   if (event.type == SDL_KEYUP) {
     if ((event.key.keysym.sym == SDLK_w) && m_dollySpeed > 0)
@@ -98,7 +102,7 @@ void Window::onCreate() {
                                  {.source = assetsPath + "original.frag",
                                   .stage = abcg::ShaderStage::Fragment}});
 
-  m_ground.create(m_program);
+  m_ground.create(m_program, m_cubeSize);
 
   // Get location of uniform variables
   m_viewMatrixLocation = abcg::glGetUniformLocation(m_program, "viewMatrix");
@@ -199,6 +203,7 @@ void Window::loadModelFromFile(std::string_view path) {
 }
 
 void Window::onPaint() {
+  auto const &assetsPath{abcg::Application::getAssetsPath()};
   // Clear color buffer and depth buffer
   abcg::glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -221,19 +226,9 @@ void Window::onPaint() {
   // Set model
   glm::mat4 model{1.0f};
 
-  /* // Draw sun
-  model = glm::mat4(1.0);
-  model = glm::translate(model, glm::vec3(1.0f, 5.0f, -3.0f));
-  model = glm::scale(model, glm::vec3(0.1f));
-
-  abcg::glUniformMatrix4fv(m_modelMatrixLocation, 1, GL_FALSE, &model[0][0]);
-  abcg::glUniform4f(m_colorLocation, 1.0f, 1.0f, 0.0f, 1.0f);
-  abcg::glDrawElements(GL_TRIANGLES, m_indices.size(), GL_UNSIGNED_INT,
-                       nullptr); */
-
   // Draw red sphere
   model = glm::mat4(1.0);
-  model = glm::translate(model, glm::vec3(-2.0f, 1.5f, 2.0f));
+  model = glm::translate(model, glm::vec3(-2.0f, 1.5f, 0.0f));
   model = glm::scale(model, glm::vec3(0.01f));
 
   abcg::glUniformMatrix4fv(m_modelMatrixLocation, 1, GL_FALSE, &model[0][0]);
@@ -243,7 +238,7 @@ void Window::onPaint() {
 
   // Draw green sphere
   model = glm::mat4(1.0);
-  model = glm::translate(model, glm::vec3(0.0f, 3.0f, 2.0f));
+  model = glm::translate(model, glm::vec3(0.0f, 3.0f, 0.0f));
   model = glm::scale(model, glm::vec3(0.01f));
 
   abcg::glUniformMatrix4fv(m_modelMatrixLocation, 1, GL_FALSE, &model[0][0]);
@@ -253,7 +248,7 @@ void Window::onPaint() {
 
   // Draw blue sphere
   model = glm::mat4(1.0);
-  model = glm::translate(model, glm::vec3(2.0f, 1.5f, 2.0f));
+  model = glm::translate(model, glm::vec3(2.0f, 1.5f, 0.0f));
   model = glm::scale(model, glm::vec3(0.01f));
 
   abcg::glUniformMatrix4fv(m_modelMatrixLocation, 1, GL_FALSE, &model[0][0]);
@@ -263,9 +258,23 @@ void Window::onPaint() {
 
   abcg::glBindVertexArray(0);
 
-  // Draw ground
-  m_ground.paint();
-
+  if (m_togleSize == 1) {
+    m_ground.destroy();
+    m_program =
+        abcg::createOpenGLProgram({{.source = assetsPath + "original.vert",
+                                    .stage = abcg::ShaderStage::Vertex},
+                                   {.source = assetsPath + "original.frag",
+                                    .stage = abcg::ShaderStage::Fragment}});
+    if (m_cubeSize == 0.5)
+      m_cubeSize = 0.15;
+    else
+      m_cubeSize = 0.5;
+    m_ground.create(m_program, m_cubeSize);
+    m_togleSize = 0;
+  } else {
+    // Draw ground
+    m_ground.paint();
+  }
   abcg::glUseProgram(0);
 }
 
