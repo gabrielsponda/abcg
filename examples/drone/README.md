@@ -1,4 +1,15 @@
-# COMANDOS
+# Integrantes
+
+- Gabriel Sponda Freitas Bettarello - 11201932580
+- João Vitor Arruda Bartolo - 11201812168
+
+---
+
+# Drone Pilot
+
+Este projeto é uma adaptação do projeto "LookAt" que oferece uma experiência de pilotagem de drone em primeira pessoa. Além disso, foram implementadas animações no chão para tornar a experiência mais dinâmica. O objetivo é proporcionar aos usuários a sensação de controlar um drone enquanto exploram um ambiente tridimensional envolvente. A seguir, serão detalhadas as modificações e implementações específicas deste projeto.
+
+## COMANDOS
 
 ``W`` e ``S``: Movimento *dolly*
 
@@ -29,13 +40,6 @@
 ``6``: Shader *wave*
 
 ``7``: Shader *cubeWave*
-
-
-
-# Drone
-
-Este projeto é uma adaptação do projeto "LookAt" que oferece uma experiência de pilotagem de drone em primeira pessoa. Além disso, foram implementadas animações no chão para tornar a experiência mais dinâmica. O objetivo é proporcionar aos usuários a sensação de controlar um drone enquanto exploram um ambiente tridimensional envolvente. A seguir, serão detalhadas as modificações e implementações específicas deste projeto.
-
 
 
 ## Camera
@@ -80,7 +84,9 @@ A função ``loadShader()`` carrega, compila e vincula os shaders de vértice e 
 
 ``abcg::glGetUniformLocation()``: Obtém as localizações das variáveis uniformes no programa de shader, como viewMatrix, projMatrix, modelMatrix, color e time, armazenando-as para uso posterior em transformações, coloração e animação.
 
-#### Shaders
+---
+
+# Shaders
 
 ###### original (0)
 
