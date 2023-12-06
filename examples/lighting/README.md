@@ -239,25 +239,3 @@ As principais alterações no código incluem:
   ````vert
   vec4 lightDirWorldSpace = lightPosWorldSpace - (modelMatrix * vec4(inPosition, 1.0));
   ````
-
-- **Cálculo da Direção da Luz**: Neste trecho, a direção da luz é calculada subtraindo a posição transformada do vértice (`modelMatrix * vec4(inPosition, 1.0)`) da posição da luz no mundo (`lightPosWorldSpace`). Isso resulta em um vetor que aponta da posição do vértice para a fonte de luz pontual. Diferentemente da iluminação direcional, onde a direção da luz é constante, na iluminação pontual, a direção varia com a posição dos vértices.
-
-  ```vert
-  glslCopy codevec3 P = (viewMatrix * modelMatrix * vec4(inPosition, 1.0)).xyz;
-  vec3 N = normalMatrix * inNormal;
-  vec3 L = -(viewMatrix * lightDirWorldSpace).xyz;
-  
-  fragL = L;
-  fragV = -P;
-  fragN = N;
-  
-  gl_Position = projMatrix * vec4(P, 1.0);
-  ```
-
-- **Transformações e Passagem de Dados para o Fragment Shader**: Este bloco de código realiza as transformações de visualização e projeta as coordenadas dos vértices. Ele também prepara os vetores necessários para cálculos de iluminação no fragment shader:
-
-  - P: Posição do vértice no espaço da câmera.
-  - N: Vetor normal do vértice no espaço da câmera.
-  - L: Direção da luz no espaço da câmera, ajustada pela matriz de visualização.
-
-  Os vetores L, V (direção da visão, calculada como -P) e N são passados para o fragment shader para cálculos de iluminação subsequentes.
