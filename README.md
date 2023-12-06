@@ -20,6 +20,7 @@ Este repositório é um fork do repositório abcg do professor, utilizado para o
 - **Descrição**: Aplicação 3D com textura que evidencia a diferença entre iluminação direcional e pontual.
 - **Tecnologias**: OpenGL, GLSL, ABCg.
 - **Link do Projeto**: [Lighting](https://github.com/gabrielsponda/abcg/tree/main/examples/lighting)
+- **Teste Web**: [Lighting Web](https://gabrielsponda.github.io/abcg/public/lighting.html)
 
 ## Destaques
 
