@@ -17,8 +17,9 @@ Este repositório é um fork do repositório abcg do professor, utilizado para o
 - **Teste Web**: [Drone Pilot Web](https://gabrielsponda.github.io/abcg/public/drone)
 
 ### Projeto 3 (Em Desenvolvimento)
-- **Descrição**: Uma aplicação interativa 3D avançada com iluminação e texturização.
+- **Descrição**: Aplicação 3D com textura que evidencia a diferença entre iluminação direcional e pontual.
 - **Tecnologias**: OpenGL, GLSL, ABCg.
+- **Link do Projeto**: [Lighting](https://github.com/gabrielsponda/abcg/tree/main/examples/lighting)
 
 ## Destaques
 
