@@ -1,3 +1,3 @@
 # add_subdirectory(screensaver)
 # add_subdirectory(drone)
-add_subdirectory(viewer6)
+add_subdirectory(lighting)

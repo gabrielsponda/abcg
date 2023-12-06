@@ -31,9 +31,11 @@ private:
   glm::mat4 m_projMatrix{1.0f};
 
   // Shaders
-  std::vector<char const *> m_shaderNames{
-      "cubereflect", "cuberefract", "normalmapping", "texture", "blinnphong",
-      "phong",       "gouraud",     "normal",        "depth"};
+  std::vector<char const *> m_shaderNames{"cubereflect",   "cuberefract",
+                                          "normalmapping", "texture",
+                                          "blinnphong",    "blinnphongponctual",
+                                          "phong",         "gouraud",
+                                          "normal",        "depth"};
   std::vector<GLuint> m_programs;
   int m_currentProgramIndex{};
 
@@ -42,6 +44,11 @@ private:
   int m_mappingMode{};
 
   // Light and material properties
+
+  /*----------*/
+  glm::vec4 m_lightPos{-1.0f, -1.0f, -1.0f, 1.0f};
+  /*----------*/
+
   glm::vec4 m_lightDir{-1.0f, -1.0f, -1.0f, 0.0f};
   glm::vec4 m_Ia{1.0f};
   glm::vec4 m_Id{1.0f};
@@ -85,7 +92,6 @@ private:
   void loadModel(std::string_view path);
 
   /*----------*/
-
   std::default_random_engine m_randomEngine;
 
   struct Bunny {
@@ -102,6 +108,7 @@ private:
   float m_angle{};
 
   void randomizeBunny(Bunny &bunny);
+  /*----------*/
 };
 
 #endif

@@ -27,8 +27,9 @@ void Window::onEvent(SDL_Event const &event) {
     }
   }
   if (event.type == SDL_MOUSEWHEEL) {
-    m_zoom += (event.wheel.y > 0 ? -1.0f : 1.0f) / 5.0f;
-    m_zoom = glm::clamp(m_zoom, -1.5f, 1.0f);
+    /*----------*/
+    // m_lightPos.z += 0.1f * event.wheel.y;
+    /*----------*/
   }
 }
 
@@ -57,10 +58,10 @@ void Window::onCreate() {
   createSkybox();
 
   /*----------*/
-
   for (auto &bunny : m_bunnies) {
     randomizeBunny(bunny);
   }
+  /*----------*/
 }
 
 void Window::loadModel(std::string_view path) {
@@ -99,6 +100,12 @@ void Window::onPaint() {
       abcg::glGetUniformLocation(program, "normalMatrix")};
   auto const lightDirLoc{
       abcg::glGetUniformLocation(program, "lightDirWorldSpace")};
+
+  /*----------*/
+  auto const lightPosLoc =
+      abcg::glGetUniformLocation(program, "lightPosWorldSpace");
+  /*----------*/
+
   auto const shininessLoc{abcg::glGetUniformLocation(program, "shininess")};
   auto const IaLoc{abcg::glGetUniformLocation(program, "Ia")};
   auto const IdLoc{abcg::glGetUniformLocation(program, "Id")};
@@ -125,12 +132,17 @@ void Window::onPaint() {
 
   auto const lightDirRotated{m_trackBallLight.getRotation() * m_lightDir};
   abcg::glUniform4fv(lightDirLoc, 1, &lightDirRotated.x);
+
+  /*----------*/
+  auto const lightPosRotated{m_trackBallLight.getRotation() * m_lightPos};
+  abcg::glUniform4fv(lightPosLoc, 1, &lightPosRotated.x);
+  /*----------*/
+
   abcg::glUniform4fv(IaLoc, 1, &m_Ia.x);
   abcg::glUniform4fv(IdLoc, 1, &m_Id.x);
   abcg::glUniform4fv(IsLoc, 1, &m_Is.x);
 
   /*----------*/
-
   // Set uniform variables for the current model
   abcg::glUniform4fv(KaLoc, 1, &m_Ka.x);
   abcg::glUniform4fv(KdLoc, 1, &m_Kd.x);
@@ -152,8 +164,12 @@ void Window::onPaint() {
     auto const lightDirRotated{m_trackBallLight.getRotation() * m_lightDir};
     abcg::glUniform4fv(lightDirLoc, 1, &lightDirRotated.x);
 
+    auto const lightPosRotated{m_trackBallLight.getRotation() * m_lightPos};
+    abcg::glUniform4fv(lightPosLoc, 1, &lightPosRotated.x);
+
     m_model.render(m_trianglesToDraw);
   }
+  /*----------*/
 
   abcg::glUseProgram(0);
 
@@ -185,6 +201,7 @@ void Window::onUpdate() {
       randomizeBunny(bunny);
     }
   }
+  /*----------*/
 }
 
 void Window::onPaintUI() {
@@ -534,7 +551,7 @@ void Window::destroySkybox() const {
 }
 
 /*----------*/
-
+// Função para gerar coelhos aleatórios
 void Window::randomizeBunny(Bunny &bunny) {
   std::uniform_real_distribution<float> xDistribution(
       -3.0f, 3.0f); // Limites ajustados
@@ -567,9 +584,11 @@ void Window::randomizeBunny(Bunny &bunny) {
                                 directionDistribution(m_randomEngine),
                                 directionDistribution(m_randomEngine));
 
+  // Certificar-se de que os coelhos não fiquem parados
   while (bunny.m_direction.x == 0 && bunny.m_direction.x == 0) {
     bunny.m_direction = glm::vec3(directionDistribution(m_randomEngine),
                                   directionDistribution(m_randomEngine),
                                   directionDistribution(m_randomEngine));
   }
 }
+/*----------*/
